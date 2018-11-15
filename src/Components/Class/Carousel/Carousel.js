@@ -13,7 +13,7 @@ class Carousel extends Component {
         return (
             <div className="row">
                 <div className="col-1">
-                    <div data-toggle="tooltip" className="arrowBack" title="Previous Image Set">
+                    <div data-toggle="tooltip" onClick={this.props.loadPrevious} className="arrowBack" title="Previous Image Set">
                         <i className="fa fa-angle-left arrowlarge roundFa"></i>
                     </div>
                 </div>
@@ -40,15 +40,24 @@ class Carousel extends Component {
         );
     }
     componentWillMount() {
-        console.log("state logged");
+        console.log("component will mount");
         console.log(this.imageData);
     }
 
     componentDidMount() {
+        console.log("component did mount");
+        console.log(this.props.imageData);
         $('[data-toggle="tooltip"]').tooltip();
     }
 
+    componentWillUpdate() {
+        console.log("component will update");
+        console.log(this.props.imageData);
+    }
+
     componentDidUpdate() {
+        console.log("component did update");
+        console.log(this.props.imageData);
         $('[data-toggle="tooltip"]').tooltip();
     }
 }

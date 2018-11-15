@@ -12,7 +12,10 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
+        /**Bind to retian object state */
         this.loadNextImageBlock = this.loadNextImageBlock.bind(this);
+        this.loadPreviousImageBlock = this.loadPreviousImageBlock.bind(this);
+        /**Initialise state */
         this.state = {
             isSuccess: false,
             isError: false,
@@ -36,7 +39,7 @@ class Home extends Component {
                         <div className="loaderContainer">
                             {this.state.isLoading && (<i className="fa fa-circle-o-notch fa-spin loader"></i>)}
                         </div>
-                        {this.state.isSuccess && (<Carousel imageData={this.state.blockData} loadNext={this.loadNextImageBlock}></Carousel>)}
+                        {this.state.isSuccess && (<Carousel imageData={this.state.blockData} loadNext={this.loadNextImageBlock} loadPrevious={this.loadPreviousImageBlock}></Carousel>)}
                     </div>
                 </div>
             </div>
@@ -53,16 +56,34 @@ class Home extends Component {
         return true;
     }
 
+    loadPreviousImageBlock(){
+        let currentPage = this.state.pageNumber;
+        let pageLength = this.state.pageLength;
+        currentPage = currentPage - 1;
+        let blockData = this.getBlockSlice(this.state.data, currentPage, pageLength);
+        /**Set State Now */
+        this.setState({
+         blockData: blockData,
+         pageNumber: currentPage
+         });
+     }
+
     loadNextImageBlock(){
-        console.log("load next");
+       let currentPage = this.state.pageNumber;
+       let pageLength = this.state.pageLength;
+       currentPage = currentPage + 1;
+       let blockData = this.getBlockSlice(this.state.data, currentPage, pageLength);
+       /**Set State Now */
+       this.setState({
+        blockData: blockData,
+        pageNumber: currentPage
+        });
     }
 
     processData(data){
         let currentPage  = this.state.pageNumber;
         let pageLength = this.state.pageLength;
         let blockData = this.getBlockSlice(data, currentPage, pageLength);
-        console.log("sliced data");
-        console.log(blockData);
         /**Set State Now */
         this.setState({
             isSuccess: true,
@@ -76,7 +97,7 @@ class Home extends Component {
     
     getBlockSlice(allData, currentPage, pageLength){
         let pageToNavigate = currentPage * pageLength;
-        let startIndex = ((this.currentPage - 1) * this.pageLength);
+        let startIndex = ((currentPage - 1) * pageLength);
         return allData.slice(startIndex, pageToNavigate);
     }
 
