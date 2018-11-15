@@ -1,0 +1,18 @@
+.modal-lg {
+    max-width: 80%;
+}
+.close{
+    position: absolute;
+    right: 2%;
+    top: 1%;
+    font-size: 2.5rem !important;
+}
+.modal-body{
+    max-width: 800px;
+    max-height: 600px;
+    padding: 0px !important;
+}
+.modal-body img{
+    width: 100%;
+    height: 100%;
+}

@@ -9,6 +9,8 @@ import Carousel from '../Carousel/Carousel';
 class Home extends Component {
 
     imageBlockAPI = "https://demo3235729.mockable.io/carousel/getaAll";
+    disablePrevious = true;
+    disableNext = false;
 
     constructor(props) {
         super(props);
@@ -39,7 +41,7 @@ class Home extends Component {
                         <div className="loaderContainer">
                             {this.state.isLoading && (<i className="fa fa-circle-o-notch fa-spin loader"></i>)}
                         </div>
-                        {this.state.isSuccess && (<Carousel imageData={this.state.blockData} loadNext={this.loadNextImageBlock} loadPrevious={this.loadPreviousImageBlock}></Carousel>)}
+                        {this.state.isSuccess && (<Carousel pageNumber={this.state.pageNumber} imageData={this.state.blockData} loadNext={this.loadNextImageBlock} loadPrevious={this.loadPreviousImageBlock} disablePrevious={this.disablePrevious} disableNext={this.disableNext}></Carousel>)}
                     </div>
                 </div>
             </div>
@@ -98,7 +100,23 @@ class Home extends Component {
     getBlockSlice(allData, currentPage, pageLength){
         let pageToNavigate = currentPage * pageLength;
         let startIndex = ((currentPage - 1) * pageLength);
+        /**Check for button logic */
+        this.handleButtonLogic(allData, startIndex, pageToNavigate);
+        /**Return slice */
         return allData.slice(startIndex, pageToNavigate);
+    }
+
+    handleButtonLogic(allData, startIndex, pageToNavigate){
+        if(startIndex == 0){
+            this.disablePrevious = true;
+            this.disableNext = false;
+        }else if(pageToNavigate >= allData.length){
+            this.disablePrevious = false;
+            this.disableNext = true;
+        }else{
+            this.disablePrevious = false;
+            this.disableNext = false;
+        }
     }
 
     getImages() {

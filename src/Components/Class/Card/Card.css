@@ -1,0 +1,12 @@
+.card{
+    cursor: pointer;
+}
+.card img{
+    height: 200px;
+}
+.card-body{
+    padding: 0.25rem !important;
+}
+.card-title{
+    margin-bottom: 0.25rem !important;
+}

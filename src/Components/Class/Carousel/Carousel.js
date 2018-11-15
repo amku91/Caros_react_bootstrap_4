@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-import Card from '../../Simple/Card/Card';
+import Card from '../Card/Card';
 
 import './Carousel.css';
 
 class Carousel extends Component {
     imageData = [];
+    constructor(props){
+        super(props);
+    }
     render() {
         this.imageData = this.props.imageData;
         let rows = [];
         return (
             <div className="row">
                 <div className="col-1">
-                    <div data-toggle="tooltip" onClick={this.props.loadPrevious} className="arrowBack" title="Previous Image Set">
+                    <div data-toggle="tooltip" onClick={this.props.loadPrevious} className={this.props.disablePrevious ? "arrowBack disabled" : "arrowBack"} title="Previous Image Set">
                         <i className="fa fa-angle-left arrowlarge roundFa"></i>
                     </div>
                 </div>
@@ -22,9 +25,10 @@ class Carousel extends Component {
                         {
                             this.imageData.map((object, index) => {
                                 let randomIndex = Math.floor(Math.random() * object.images.length);
+                                let imageUrl = object.images[randomIndex];
                                 return (
                                     <div key={index} className="col-3">
-                                        <Card title={object.title} imageUrl={object.images[randomIndex]} />
+                                        <Card title={object.title} imageUrl={imageUrl} />
                                     </div>
                                 );
                             })
@@ -32,32 +36,34 @@ class Carousel extends Component {
                     </div>
                 </div>
                 <div className="col-1">
-                    <div data-toggle="tooltip" onClick={this.props.loadNext} className="arrowForward" title="Next Image Set">
+                    <div data-toggle="tooltip" onClick={this.props.loadNext} className={this.props.disableNext ? "arrowForward disabled" : "arrowForward"} title="Next Image Set">
                         <i className="fa fa-angle-right arrowlarge roundFa"></i>
                     </div>
                 </div>
             </div>
         );
     }
+
+    
+    shouldComponentUpdate(nextProps, nextState){
+        console.log("componetn should update");
+        console.log(nextProps);
+        console.log(nextState);
+        console.log(this.props.pageNumber!= nextProps.pageNumber);
+        return (this.props.pageNumber != nextProps.pageNumber);
+    }
+
     componentWillMount() {
-        console.log("component will mount");
-        console.log(this.imageData);
     }
 
     componentDidMount() {
-        console.log("component did mount");
-        console.log(this.props.imageData);
         $('[data-toggle="tooltip"]').tooltip();
     }
 
     componentWillUpdate() {
-        console.log("component will update");
-        console.log(this.props.imageData);
     }
 
     componentDidUpdate() {
-        console.log("component did update");
-        console.log(this.props.imageData);
         $('[data-toggle="tooltip"]').tooltip();
     }
 }

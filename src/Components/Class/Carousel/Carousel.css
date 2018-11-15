@@ -5,7 +5,7 @@ font-size:48px;
 .arrowBack{
     margin: 0px auto;
     position: absolute;
-    top: 40%;
+    top: 35%;
     right: 15%;
     cursor: pointer;
 }
@@ -13,7 +13,7 @@ font-size:48px;
 .arrowForward{
     margin: 0px auto;
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 15%;
     cursor: pointer;
 }
@@ -25,4 +25,8 @@ font-size:48px;
     padding: 0.1em 0.4em;
     background-color: #dddddd;
   
+  }
+  div.disabled{
+      pointer-events: none;
+      opacity: 0.3;
   }
