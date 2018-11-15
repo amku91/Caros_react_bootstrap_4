@@ -1,0 +1,8 @@
+.loaderContainer{
+    display: block !important;
+    margin: 0px auto !important;
+}
+.loader{
+    font-size:72px;
+    color:#673ab7;
+}

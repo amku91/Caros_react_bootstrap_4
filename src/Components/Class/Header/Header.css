@@ -1,0 +1,9 @@
+.navbar-accent{
+    background-color: #673ab7;
+}
+.navbar-toggle {
+    border: 1px solid white;
+}
+.navbar-toggle .icon-bar {
+    background-color: white;
+}
